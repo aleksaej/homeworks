@@ -160,7 +160,7 @@ console.log(arr);
 
 
 //1
- function createArray(start, end) {
+function createArray(start, end) {
     return Array(end - start + 1).fill().reduce(function(arr, _, i) {
       arr.push(start + i);
       return arr;
@@ -195,38 +195,77 @@ return k;
 }
 let result = randArray(5);
 console.log(result);
+ 
+
+//4
+ function compact(arr) {
+    let result = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (result.indexOf(arr[i]) === -1) {
+        result.push(arr[i]);
+      }
+    }
+    return result;
+  }
+  
+  const arr = [5, 3, 4, 5, 6, 7, 3];
+  const arr2 = compact(arr);
+  console.log(arr2); // [5, 3, 4, 6, 7]
+
+//5
+  function funcName(arr) {
+    let newArr1 = [];
+    let newArr2 = [];
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+        newArr1 = newArr1.concat(arr[i]);
+      } else {
+        newArr2.push(arr[i]);
+      }
+    }
+  
+    return [newArr1.filter(element => typeof element !== "string"), newArr2.filter(element => typeof element === "string")];
+  }
+  
+  let arr = [5, "Limit", 12, "a", "3", 99, 2, [2, 4, 3, "33", "a", "text"], "strong", "broun"];
+  let arrNew = funcName(arr);
+  console.log(arrNew);
+ 
+  
+  
+//6
+function calc(a, b, op) {
+    let result;
+    switch (op) {
+      case 1:
+        result = a - b;
+        break;
+      case 2:
+        result = a * b;
+        break;
+      case 3:
+        result = a / b;
+        break;
+      default:
+        result = a + b;
+        break;
+    }
+    return result;
+  }
+  
+  console.log(calc(10, 3, 1)); 
 
 
-/*4.
-Написати функцію compact() яка має приймати на вхід масив, а на вихід має повертати значення нового масиву без повторень.
-приклад:
-const arr = [5, 3, 4, 5,6,7,3];
-const arr2 = compact(arr);
-console.log(arr2) ; // [5,3,4,6,7]
-
-
-5.
-Є масив [5, “Limit”, 12, “a”, “3”, 99, 2, [2, 4, 3, “33”, “a”, “text”], “strong”, “broun”]
-Написати функцію яка виведе нові масиви які складаються із даних початкового масиву, але одного типу даних (не приводити тип стрінг в число навіть якщо там лише число)
-let  arr = [5, “Limit”, 12, “a”, “3”, 99, 2, [2, 4, 3, “33”, “a”, “text”], “strong”, “broun”];
-let arrNew = funcName(arr);
-/* 
-[
-[5, 12, 99, 2, 2, 4, 3],
-[”Limit”, “a”, “3”, “33”, “a”, “text”, “strong”, “broun”
-] 
-
-
-
-6.
-Напишіть функцію calc(a, b, op), яка виконує над числами a і b одну із арифметичних операцій та повертає її результат. Вид операції визначається цілим числом op: 1 – віднімання, 2 – добуток, 3 – ділення, інші значення – додавання.
-calc(10, 3, 1); // =>
-
-7
-[19:32]
-
-Напишіть функцію findUnique(arr), яка приймає масив arr і перевіряє на унікальність його елементи. Якщо всі елементи масиву унікальні (не мають дублів), то функція поверне true, інакше - false.
-findUnique([1, 2, 3, 5, 3]);  // => false
-findUnique([1, 2, 3, 5, 11]); // => true
-*/
-
+  //7
+function findUnique(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr.indexOf(arr[i]) !== arr.lastIndexOf(arr[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  console.log(findUnique([1, 2, 3, 5, 3]));  
+  console.log(findUnique([1, 2, 3, 5, 11])); 
