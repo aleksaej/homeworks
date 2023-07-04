@@ -154,7 +154,7 @@ console.log(arr);
 
 
 
-
+/*
 
 //3 LOOPS. FUNCTIONS
 
@@ -269,3 +269,147 @@ function findUnique(arr) {
   
   console.log(findUnique([1, 2, 3, 5, 3]));  
   console.log(findUnique([1, 2, 3, 5, 11])); 
+
+*/
+
+ //4. DEBUGGING. HANDLING EXCEPTIONS
+
+ //1.
+ function sumSliceArray(arr, first, second) {
+  if (!Array.isArray(arr)) {
+    throw new Error("Перший аргумент має бути масивом.");
+  }
+  
+  if (typeof first !== 'number' || typeof second !== 'number') {
+    throw new Error("Другий та третій аргументи мають бути числами.");
+  }
+  
+  if (first < 0 || second < 0 || first >= arr.length || second >= arr.length) {
+    throw new Error("Другий та третій аргументи мають бути в межах розміру масиву.");
+  }
+  
+  return arr[first] + arr[second];
+}
+
+
+try {
+  const array = [1, 2, 3, 4, 5, 6];
+  const result = sumSliceArray(array, 2, 4);
+  console.log(result); 
+} catch (error) {
+  console.error(errror);
+}
+
+
+//2.
+function checkAge() {
+  try {
+    const name = prompt("Введіть ваше ім'я:");
+    const age = prompt("Введіть ваш вік:");
+    const status = prompt("Введіть ваш статус (адмін, модератор, користувач):");
+    
+    if (!name || !age || !status) {
+      throw new Error("The field is empty! Please enter your age");
+    }
+    
+    if (isNaN(age)) {
+      throw new TypeError("Вік має бути числовим значенням.");
+    }
+    
+    const parsedAge = parseInt(age, 10);
+    
+    if (parsedAge < 18 || parsedAge > 70) {
+      throw new RangeError("Вік користувача повинен бути в межах 18-70 років.");
+    }
+    
+    if (status !== "адмін" && status !== "модератор" && status !== "користувач") {
+      throw new EvalError("Введено неправильний статус.");
+    }
+    
+    alert("Ви маєте доступ до перегляду фільму!");
+  } catch (error) {
+    alert(`${error}: ${error}`);
+  }
+}
+
+
+//3.
+
+function calcRectangleArea(width, height) {
+  if (typeof width !== 'number' || typeof height !== 'number') {
+    throw new TypeError("Параметри мають бути числовими значеннями.");
+  }
+  
+  return width * height;
+}
+
+
+try {
+  const width = parseFloat(prompt("Введіть ширину прямокутника:"));
+  const height = parseFloat(prompt("Введіть висоту прямокутника:"));
+
+  const area = calcRectangleArea(width, height);
+  console.log("Площа прямокутника:", area);
+} catch (error) {
+  console.error(error);
+}
+
+
+
+
+//4. 
+ class MonthException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'MonthException';
+  }
+}
+
+function showMonthName(month) {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
+  if (month < 1 || month > 12) {
+    throw new MonthException('Incorrect month number');
+  }
+  
+  return months[month - 1];
+}
+
+
+try {
+  console.log(showMonthName(5));  
+  console.log(showMonthName(14)); 
+} catch (error) {
+  console.log(error, error);
+}
+
+
+//5
+function showUser(id) {
+  if (id < 0) {
+    throw new Error("ID must not be negative: " + id);
+  }
+  
+  return { id };
+}
+
+function showUsers(ids) {
+  const users = [];
+  
+  for (let i = 0; i < ids.length; i++) {
+    try {
+      const user = showUser(ids[i]);
+      users.push(user);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  
+  return users;
+}
+
+const result = showUsers([7, -12, 44, 22]);
+console.log(result);
